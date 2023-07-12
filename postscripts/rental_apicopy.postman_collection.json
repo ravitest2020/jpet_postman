@@ -1,0 +1,436 @@
+{
+	"info": {
+		"_postman_id": "030af106-5728-4982-94dc-a276a5553c45",
+		"name": "rental_apicopy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19255835",
+		"_collection_link": "https://gold-star-772856.postman.co/workspace/jmeter-testing~c2af328f-af3f-4d0a-b2d5-c802a44ede96/collection/19255835-030af106-5728-4982-94dc-a276a5553c45?action=share&creator=19255835&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "launch",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://simple-tool-rental-api.glitch.me",
+					"protocol": "https",
+					"host": [
+						"simple-tool-rental-api",
+						"glitch",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "launch Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{mainurl}}/status",
+					"host": [
+						"{{mainurl}}"
+					],
+					"path": [
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_all_tools",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response=pm.response.json();\r",
+							"//cnst non_plumbing=response.filter((tools)=>)\r",
+							"function rand(items) {\r",
+							"    // \"~~\" for a closest \"int\"\r",
+							"    return items[~~(items.length * Math.random())];\r",
+							"}\r",
+							"test=rand(response);\r",
+							"console.log(test.id);\r",
+							"\r",
+							"pm.globals.set(\"tool_id\", test.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{mainurl}}/tools?category=plumbing",
+					"host": [
+						"{{mainurl}}"
+					],
+					"path": [
+						"tools"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "plumbing"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_single_tool",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{mainurl}}/tools/{{tool_id}}",
+					"host": [
+						"{{mainurl}}"
+					],
+					"path": [
+						"tools",
+						"{{tool_id}}"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "trailers",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "new_api",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"clientName\": \"Postman\",\r\n   \"clientEmail\": \"junemid1@example.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{mainurl}}/api-clients",
+					"host": [
+						"{{mainurl}}"
+					],
+					"path": [
+						"api-clients"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "trailers",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create_order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const order_response=pm.response.json();\r",
+							"console.log(order_response);\r",
+							"pm.globals.set(\"orderID\",order_response.orderId);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{tokendup}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"toolId\": {{tool_id}},\r\n \"customerName\": \"John Doe\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{mainurl}}/orders",
+					"host": [
+						"{{mainurl}}"
+					],
+					"path": [
+						"orders"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "trailers",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getsingle_order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{tokendup}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{mainurl}}/orders/:orderId",
+					"host": [
+						"{{mainurl}}"
+					],
+					"path": [
+						"orders",
+						":orderId"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "trailers",
+							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "orderId",
+							"value": "{{orderID}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update_order_id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{tokendup}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"customerName\": \"Joe Doe{{$randomLastName}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{mainurl}}/orders/:orderId",
+					"host": [
+						"{{mainurl}}"
+					],
+					"path": [
+						"orders",
+						":orderId"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "trailers",
+							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "orderId",
+							"value": "{{orderID}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "all_orders",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{tokendup}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{mainurl}}/orders",
+					"host": [
+						"{{mainurl}}"
+					],
+					"path": [
+						"orders"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "trailers",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "mainurl",
+			"value": "https://simple-tool-rental-api.glitch.me"
+		},
+		{
+			"key": "SINGLE_ID",
+			"value": "DFRS",
+			"type": "string"
+		},
+		{
+			"key": "TOOL_ID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "tokendup",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
