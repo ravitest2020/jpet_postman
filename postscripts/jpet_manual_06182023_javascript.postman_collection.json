@@ -1,0 +1,796 @@
+{
+	"info": {
+		"_postman_id": "0267203d-a7df-4f0c-b105-70fae49acffe",
+		"name": "jpet_manual_06182023_javascript",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19255835",
+		"_collection_link": "https://gold-star-772856.postman.co/workspace/jmeter-testing~c2af328f-af3f-4d0a-b2d5-c802a44ede96/collection/19255835-0267203d-a7df-4f0c-b105-70fae49acffe?action=share&creator=19255835&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "launch",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Welcome to JPetStore\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://petstore.octoperf.com/",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"octoperf",
+						"com"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "enter_store",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// pm.test(\"Successful POST request\", function () {\r",
+							"//     pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+							"// });\r",
+							"//pm.test(\"Body is correct\", function () {\r",
+							"   // pm.response.to.have.body(\"actions/Account.action?signonForm=\");\r",
+							"//});\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"signonForm\");\r",
+							"    \r",
+							"});//\r",
+							"console.log(pm.response.text());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://petstore.octoperf.com/actions/Catalog.action",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"octoperf",
+						"com"
+					],
+					"path": [
+						"actions",
+						"Catalog.action"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"newAccountForm\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://petstore.octoperf.com/actions/Account.action?signonForm=",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"octoperf",
+						"com"
+					],
+					"path": [
+						"actions",
+						"Account.action"
+					],
+					"query": [
+						{
+							"key": "signonForm",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "registration",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const source=/_sourcePage\" value=\"(.*?)=\"/g;\r",
+							"const fp=/_fp\" value=\"(.*?)\"/g;\r",
+							"A=source.exec(pm.response.text());\r",
+							"b=fp.exec(pm.response.text());\r",
+							"A=source.exec(pm.response.text());\r",
+							"b=fp.exec(pm.response.text());\r",
+							"console.log(A[1]);\r",
+							"pm.environment.set(\"c_source\",A[1]);\r",
+							"pm.environment.set(\"c_fp\",b[1]);\r",
+							"//User Information\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"User Information\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://petstore.octoperf.com/actions/Account.action?newAccountForm=",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"octoperf",
+						"com"
+					],
+					"path": [
+						"actions",
+						"Account.action"
+					],
+					"query": [
+						{
+							"key": "newAccountForm",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user_information",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const source2=/_sourcePage\" value=\"(.*?)\"/g;\r",
+							"const fppage2=/__fp\" value=\"(.*?)\"/g;\r",
+							"A=source2.exec(pm.response.text());\r",
+							"//B=fppage2.exec(pm.response.text());\r",
+							"pet=fppage2.exec(pm.response.text());\r",
+							"//console.log(A[1]);\r",
+							"//console.log(pet);\r",
+							"pm.environment.set(\"C_source2\",A[1]);//\r",
+							"pm.environment.set(\"C_FP\",pet[1]);\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"JPetStore Demo\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//pm.environment.set('user-email', pm.variables.replaceIn('{{$randomEmail}}'));\r",
+							"//let uName = \"test\";//pm.variables.replaceIn(\"{{$randomUserName}}\")\r",
+							"pm.environment.set(\"username\", \"abcd_\"+`${Date.now()}`)\r",
+							"//console.log(uName);\r",
+							"console.log(pm.environment.get(\"username\"))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://petstore.octoperf.com/actions/Account.action?username={{username}}&password={{PWD}}&repeatedPassword={{PWD}}&account.firstName=Fname&account.lastName=Lname&account.email=Fnamelast%40gmail.com&account.phone=6785432&account.address1=adress12&account.address2=adress1234&account.city=cityx&account.state=statey&account.zip=34567892&account.country=usa&account.languagePreference=english&account.favouriteCategoryId=FISH&newAccount=Save+Account+Information&_sourcePage={{c_source}}%3D&__fp={{c_fp}}",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"octoperf",
+						"com"
+					],
+					"path": [
+						"actions",
+						"Account.action"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "{{username}}"
+						},
+						{
+							"key": "password",
+							"value": "{{PWD}}"
+						},
+						{
+							"key": "repeatedPassword",
+							"value": "{{PWD}}"
+						},
+						{
+							"key": "account.firstName",
+							"value": "Fname"
+						},
+						{
+							"key": "account.lastName",
+							"value": "Lname"
+						},
+						{
+							"key": "account.email",
+							"value": "Fnamelast%40gmail.com"
+						},
+						{
+							"key": "account.phone",
+							"value": "6785432"
+						},
+						{
+							"key": "account.address1",
+							"value": "adress12"
+						},
+						{
+							"key": "account.address2",
+							"value": "adress1234"
+						},
+						{
+							"key": "account.city",
+							"value": "cityx"
+						},
+						{
+							"key": "account.state",
+							"value": "statey"
+						},
+						{
+							"key": "account.zip",
+							"value": "34567892"
+						},
+						{
+							"key": "account.country",
+							"value": "usa"
+						},
+						{
+							"key": "account.languagePreference",
+							"value": "english"
+						},
+						{
+							"key": "account.favouriteCategoryId",
+							"value": "FISH"
+						},
+						{
+							"key": "newAccount",
+							"value": "Save+Account+Information"
+						},
+						{
+							"key": "_sourcePage",
+							"value": "{{c_source}}%3D"
+						},
+						{
+							"key": "__fp",
+							"value": "{{c_fp}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const CATEGORY=/categoryId=(.*?)\"/g;\r",
+							"//CAT=CATEGORY.exec(pm.response.text());\r",
+							"//console.log(CAT);\r",
+							"arraycat =[];\r",
+							"do{\r",
+							"    CAT=CATEGORY.exec(pm.response.text());\r",
+							"    if(CAT){\r",
+							"    //console.log(CAT);\r",
+							"    arraycat.push(CAT);\r",
+							"    }\r",
+							"    \r",
+							"}while(CAT);\r",
+							"function rand(items) {\r",
+							"    // \"~~\" for a closest \"int\"\r",
+							"    return items[~~(items.length * Math.random())];\r",
+							"}\r",
+							"//console.log(array);\r",
+							"catvar=rand(arraycat);\r",
+							"console.log(\"dsflm;dsffsf --- > \"+ catvar[1]);\r",
+							"pm.environment.set(\"catid\",catvar[1]);\r",
+							"//Welcome Fname!\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Sign Out\");\r",
+							"});\r",
+							"\r",
+							"//pm.environment.set(\"catid[1]\",catvar[1]);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://petstore.octoperf.com/actions/Account.action?username={{username}}&password={{pwd}}&signon=Login&_sourcePage={{C_source2}}%3D&__fp={{C_FP}}",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"octoperf",
+						"com"
+					],
+					"path": [
+						"actions",
+						"Account.action"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "{{username}}"
+						},
+						{
+							"key": "password",
+							"value": "{{pwd}}"
+						},
+						{
+							"key": "signon",
+							"value": "Login"
+						},
+						{
+							"key": "_sourcePage",
+							"value": "{{C_source2}}%3D"
+						},
+						{
+							"key": "__fp",
+							"value": "{{C_FP}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "category",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const product=/iewProduct=&amp;productId=(.*)\"/g;\r",
+							"PRODUCT1=product.exec(pm.response.text()); \r",
+							"console.log(PRODUCT1[1]);\r",
+							"pm.environment.set(\"c_product\",PRODUCT1[1]);\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"catid\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://petstore.octoperf.com/actions/Catalog.action?viewCategory=&categoryId={{catid}}",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"octoperf",
+						"com"
+					],
+					"path": [
+						"actions",
+						"Catalog.action"
+					],
+					"query": [
+						{
+							"key": "viewCategory",
+							"value": ""
+						},
+						{
+							"key": "categoryId",
+							"value": "{{catid}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const ITEM=/viewItem=&amp;itemId=(.*)\"/g;\r",
+							"item1=ITEM.exec(pm.response.text());\r",
+							"console.log(item1[1]);\r",
+							"pm.environment.set(\"c_item\",item1[1]);\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Return to \" +pm.environment.get(\"catid\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://petstore.octoperf.com/actions/Catalog.action?viewProduct=&productId={{c_product}}",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"octoperf",
+						"com"
+					],
+					"path": [
+						"actions",
+						"Catalog.action"
+					],
+					"query": [
+						{
+							"key": "viewProduct",
+							"value": ""
+						},
+						{
+							"key": "productId",
+							"value": "{{c_product}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "item",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// const workitemid=/Cart=&amp;workingItemId=(.*?)\"/g;\r",
+							"// wiid=workitemid.exec(pm.response.text());\r",
+							"// console.log(wiid[1]);\r",
+							"// pm.environment.set(\"c_wiid\",wiid[1]);\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Return to \"+pm.environment.get(\"c_product\"));\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://petstore.octoperf.com/actions/Catalog.action?viewItem=&itemId={{c_item}}",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"octoperf",
+						"com"
+					],
+					"path": [
+						"actions",
+						"Catalog.action"
+					],
+					"query": [
+						{
+							"key": "viewItem",
+							"value": ""
+						},
+						{
+							"key": "itemId",
+							"value": "{{c_item}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add_cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Proceed to Checkout\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://petstore.octoperf.com/actions/Cart.action?addItemToCart=&workingItemId={{c_item}}",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"octoperf",
+						"com"
+					],
+					"path": [
+						"actions",
+						"Cart.action"
+					],
+					"query": [
+						{
+							"key": "addItemToCart",
+							"value": ""
+						},
+						{
+							"key": "workingItemId",
+							"value": "{{c_item}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "checkout",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const lastsource=/_sourcePage\" value=\"(.*?)=\"/g;\r",
+							"const lastfp=/name=\"__fp\" value=\"(.*?)\"/g;\r",
+							"last=lastsource.exec(pm.response.text());\r",
+							"LASTFP=lastfp.exec(pm.response.text());\r",
+							"console.log(last[1]);\r",
+							"console.log(LASTFP[1]);\r",
+							"pm.environment.set(\"c_LASTFP\",LASTFP[1]);\r",
+							"pm.environment.set(\"c_lasts\",last[1]);\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Payment Details\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://petstore.octoperf.com/actions/Order.action?newOrderForm=",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"octoperf",
+						"com"
+					],
+					"path": [
+						"actions",
+						"Order.action"
+					],
+					"query": [
+						{
+							"key": "newOrderForm",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "continue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Please confirm the information below and then\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://petstore.octoperf.com/actions/Order.action?order.cardType=Visa&order.creditCard=999+9999+9999+9999%26order.expiryDate=12%2F03&order.billToFirstName=Fname&order.billToLastName=Lname&order.billAddress1=adress12&order.billAddress2=adress1234&order.billCity=cityx&order.billState=statey&order.billZip=34567892&order.billCountry=usa&newOrder=Continue&_sourcePage={{c_lasts}}%3D&__fp={{c_LASTFP}}%3D%3D",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"octoperf",
+						"com"
+					],
+					"path": [
+						"actions",
+						"Order.action"
+					],
+					"query": [
+						{
+							"key": "order.cardType",
+							"value": "Visa"
+						},
+						{
+							"key": "order.creditCard",
+							"value": "999+9999+9999+9999%26order.expiryDate=12%2F03"
+						},
+						{
+							"key": "order.billToFirstName",
+							"value": "Fname"
+						},
+						{
+							"key": "order.billToLastName",
+							"value": "Lname"
+						},
+						{
+							"key": "order.billAddress1",
+							"value": "adress12"
+						},
+						{
+							"key": "order.billAddress2",
+							"value": "adress1234"
+						},
+						{
+							"key": "order.billCity",
+							"value": "cityx"
+						},
+						{
+							"key": "order.billState",
+							"value": "statey"
+						},
+						{
+							"key": "order.billZip",
+							"value": "34567892"
+						},
+						{
+							"key": "order.billCountry",
+							"value": "usa"
+						},
+						{
+							"key": "newOrder",
+							"value": "Continue"
+						},
+						{
+							"key": "_sourcePage",
+							"value": "{{c_lasts}}%3D"
+						},
+						{
+							"key": "__fp",
+							"value": "{{c_LASTFP}}%3D%3D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "conform",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://petstore.octoperf.com/actions/Order.action?newOrder=&confirmed=true",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"octoperf",
+						"com"
+					],
+					"path": [
+						"actions",
+						"Order.action"
+					],
+					"query": [
+						{
+							"key": "newOrder",
+							"value": ""
+						},
+						{
+							"key": "confirmed",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "signoff",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://petstore.octoperf.com/actions/Account.action?signoff=",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"octoperf",
+						"com"
+					],
+					"path": [
+						"actions",
+						"Account.action"
+					],
+					"query": [
+						{
+							"key": "signoff",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "uname",
+			"value": "user6151"
+		},
+		{
+			"key": "uName",
+			"value": "user61512"
+		},
+		{
+			"key": "pwd",
+			"value": "pwduser62"
+		},
+		{
+			"key": "PWD",
+			"value": "pwduser62"
+		},
+		{
+			"key": "c_source",
+			"value": "n2cGaQjlN0QMrYOv3uRXDlU5vTKZycXZW02ji-hPWuWDY5AyFlLoCirMuzFLbj0mUsbzU0_1LYCNZYVbm9uztRZAspz066HfH_GR8CYmyKw%3D"
+		}
+	]
+}
